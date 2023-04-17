@@ -8,7 +8,6 @@
 .container {
   overflow-y: scroll;
   height: 100%;
-  /* max-height: calc(100vh - (100px + 30px)); */
   max-height: calc(100vh - (100px + 55px));
   display: flex;
   flex-direction: column;

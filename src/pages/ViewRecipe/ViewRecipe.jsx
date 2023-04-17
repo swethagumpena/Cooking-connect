@@ -25,7 +25,6 @@ const ViewRecipe = () => {
     const fetchRecipe = async () => {
       const { data } = await supabase.from("Recipes").select().eq("id", id);
       setRecipeInfo(data[0]);
-      // checkImage(data[0].image_url);
     };
     fetchRecipe();
   }, [id]);
@@ -58,17 +57,18 @@ const ViewRecipe = () => {
   };
 
   const onDeleteClick = async () => {
-    console.log();
     await supabase.from("Recipes").delete().eq("id", id);
     navigate("/");
   };
 
-  const imgExists = (url) => {
-    console.log(url);
+  const checkImage = (url) => {
     const img = new Image();
+    img.onload = () => setIsUrlValid(true);
+    img.onerror = () => setIsUrlValid(false);
     img.src = url;
-    return img.complete || img.width + img.height > 0;
   };
+
+  checkImage(recipeInfo.image_url);
 
   return (
     <div className="view-content">
@@ -89,7 +89,7 @@ const ViewRecipe = () => {
               {recipeInfo.difficulty}
             </p>
           </div>
-          {imgExists(recipeInfo.image_url) && (
+          {isUrlValid && (
             <img
               src={recipeInfo.image_url}
               alt="recipe-image"
