@@ -1,0 +1,27 @@
+.recipe-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(323px, 1fr));
+  gap: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /* overflow-y: scroll; */
+}
+
+.default-content {
+  margin: 30px;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem;
+  width: 94%;
+}

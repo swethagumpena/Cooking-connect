@@ -1,0 +1,16 @@
+footer {
+  background-color: #f7f7f7;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #333;
+}

@@ -1,0 +1,28 @@
+.view-title {
+  font-size: 3rem;
+  color: #73026b;
+  text-align: justify;
+  margin: 0;
+  font-weight: bold;
+}
+
+.dish-image {
+  height: 16rem;
+}
+
+.sub-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icons {
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.icon-highlighting {
+  border-radius: 100%;
+  background-color: rgb(226, 223, 223);
+  padding: 6px;
+}
