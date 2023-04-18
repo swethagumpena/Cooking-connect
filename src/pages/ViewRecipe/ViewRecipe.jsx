@@ -101,13 +101,31 @@ const ViewRecipe = () => {
               {recipeInfo.difficulty}
             </p>
           </div>
-          {isUrlValid && (
-            <img
-              src={recipeInfo.image_url}
-              alt="recipe-image"
-              className="dish-image"
-            />
-          )}
+          <div className="image-align">
+            {isUrlValid && (
+              <img
+                src={recipeInfo.image_url}
+                alt="recipe-image"
+                className="dish-image"
+              />
+            )}
+          </div>
+          <p className="card-content">
+            <b>Ingredients: </b>
+            {recipeInfo.ingredients}
+          </p>
+          <p className="card-content">
+            <b>Instructions: </b>
+            <br />
+            {recipeInfo.instructions.split("\n").map((item, key) => {
+              return (
+                <React.Fragment key={key}>
+                  {item}
+                  <br />
+                </React.Fragment>
+              );
+            })}
+          </p>
           <div className="sub-content">
             <div className="sub-content">
               <a

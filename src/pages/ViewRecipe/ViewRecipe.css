@@ -6,6 +6,10 @@
   font-weight: bold;
 }
 
+.image-align {
+  text-align: center;
+}
+
 .dish-image {
   height: 16rem;
 }
