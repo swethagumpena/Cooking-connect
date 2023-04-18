@@ -9,19 +9,39 @@ const Home = () => {
   let navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     const fetchRecipes = async () => {
       setIsLoading(true);
       const { data } = await supabase.from("Recipes").select();
-      setRecipes(data);
+
+      let recipeData = data;
+
+      if (sortBy === "new-old") {
+        recipeData = recipeData.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+      } else if (sortBy === "popularity") {
+        recipeData = recipeData.sort((a, b) => b.upvotes - a.upvotes);
+      }
+
+      setRecipes(recipeData);
       setIsLoading(false);
     };
     fetchRecipes();
-  }, []);
+  }, [sortBy]);
 
   const onAddRecipeClick = () => {
     navigate(`/new`);
+  };
+
+  const handleSortByMostRecent = () => {
+    setSortBy("new-old");
+  };
+
+  const handleSortByPopularity = () => {
+    setSortBy("popularity");
   };
 
   if (isLoading) {
@@ -34,6 +54,21 @@ const Home = () => {
 
   return (
     <div className="content">
+      <div className="sort-content">
+        <h4>Order by:</h4>
+        <button
+          className={`sort-btn ${sortBy === "new-old" ? "selected" : ""}`}
+          onClick={handleSortByMostRecent}
+        >
+          Newest
+        </button>
+        <button
+          className={`sort-btn ${sortBy === "popularity" ? "selected" : ""}`}
+          onClick={handleSortByPopularity}
+        >
+          Most Popular
+        </button>
+      </div>
       {recipes && recipes.length > 0 ? (
         <ul className="recipe-list">
           {recipes.map((recipe) => (

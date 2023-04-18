@@ -20,7 +20,25 @@
 .content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 0 2rem;
   width: 94%;
+}
+
+.sort-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.sort-btn {
+  padding: 12px;
+  background-color: #efe2eee8;
+  height: fit-content;
+  margin-left: 12px;
+  border: 1px dotted #7a2274;
+}
+
+.selected {
+  background-color: #983091;
+  color: white;
 }
