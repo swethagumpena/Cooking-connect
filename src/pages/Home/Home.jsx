@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../client";
 import Card from "../../components/Card/Card";
+import loadingSvg from "../../assets/loading.svg";
 import "./Home.css";
 
 const Home = () => {
   let navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecipes = async () => {
+      setIsLoading(true);
       const { data } = await supabase.from("Recipes").select();
       setRecipes(data);
+      setIsLoading(false);
     };
     fetchRecipes();
   }, []);
@@ -19,6 +23,14 @@ const Home = () => {
   const onAddRecipeClick = () => {
     navigate(`/new`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="default-content">
+        <img src={loadingSvg} alt="Loading" />
+      </div>
+    );
+  }
 
   return (
     <div className="content">

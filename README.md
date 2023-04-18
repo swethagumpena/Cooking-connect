@@ -54,7 +54,9 @@ GIF created with ...
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+### Created my own loader using:
+
+https://loading.io/spinner/spinner/
 
 ## License
 

@@ -5,6 +5,7 @@ import "./ViewRecipe.css";
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { formatDateTime } from "../../utils/dateTime";
 import { BsHandThumbsUp, BsHandThumbsUpFill } from "react-icons/bs";
+import loadingSvg from "../../assets/loading.svg";
 
 const ViewRecipe = () => {
   const { id } = useParams();
@@ -20,14 +21,25 @@ const ViewRecipe = () => {
   });
   const [isUrlValid, setIsUrlValid] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecipe = async () => {
+      setIsLoading(true);
       const { data } = await supabase.from("Recipes").select().eq("id", id);
       setRecipeInfo(data[0]);
+      setIsLoading(false);
     };
     fetchRecipe();
   }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="default-content">
+        <img src={loadingSvg} alt="Loading" />
+      </div>
+    );
+  }
 
   const onHomeClick = () => {
     navigate(`/`);

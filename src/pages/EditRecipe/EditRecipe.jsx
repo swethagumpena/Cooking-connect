@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../../client";
 import { difficulty, category } from "../../data/dropdownOptions";
 import "./EditRecipe.css";
+import loadingSvg from "../../assets/loading.svg";
 
 const EditRecipe = () => {
   const { id } = useParams();
@@ -15,9 +16,11 @@ const EditRecipe = () => {
     instructions: "",
     imageUrl: "",
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecipes = async () => {
+      setIsLoading(true);
       const { data } = await supabase.from("Recipes").select().eq("id", id);
       setRecipeInfo((prev) => {
         return {
@@ -30,9 +33,18 @@ const EditRecipe = () => {
           imageUrl: data[0].image_url,
         };
       });
+      setIsLoading(false);
     };
     fetchRecipes();
   }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="default-content">
+        <img src={loadingSvg} alt="Loading" />
+      </div>
+    );
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
