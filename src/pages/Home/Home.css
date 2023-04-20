@@ -42,3 +42,15 @@
   background-color: #983091;
   color: white;
 }
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.search-inp {
+  padding: 12px;
+  width: 18rem;
+}

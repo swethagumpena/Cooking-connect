@@ -10,6 +10,7 @@ const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -17,6 +18,9 @@ const Home = () => {
       const { data } = await supabase.from("Recipes").select();
 
       let recipeData = data;
+      recipeData = recipeData.filter((post) => {
+        return post.name.toLowerCase().includes(searchTerm.toLowerCase());
+      });
 
       if (sortBy === "new-old") {
         recipeData = recipeData.sort(
@@ -30,7 +34,7 @@ const Home = () => {
       setIsLoading(false);
     };
     fetchRecipes();
-  }, [sortBy]);
+  }, [sortBy, searchTerm]);
 
   const onAddRecipeClick = () => {
     navigate(`/new`);
@@ -68,7 +72,18 @@ const Home = () => {
         >
           Most Popular
         </button>
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            autoFocus={searchTerm && "autofocus"}
+            className="search-inp"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
+
       {recipes && recipes.length > 0 ? (
         <ul className="recipe-list">
           {recipes.map((recipe) => (
