@@ -19,7 +19,7 @@ const Home = () => {
 
       let recipeData = data;
       recipeData = recipeData.filter((post) => {
-        return post.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return post?.name?.toLowerCase().includes(searchTerm.toLowerCase());
       });
 
       if (sortBy === "new-old") {

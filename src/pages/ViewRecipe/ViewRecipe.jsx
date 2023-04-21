@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../../client";
 import "./ViewRecipe.css";
-import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
+import { AiFillEdit, AiTwotoneDelete, AiOutlineSend } from "react-icons/ai";
 import { formatDateTime } from "../../utils/dateTime";
 import { BsHandThumbsUp, BsHandThumbsUpFill } from "react-icons/bs";
 import loadingSvg from "../../assets/loading.svg";
@@ -18,10 +18,12 @@ const ViewRecipe = () => {
     instructions: "",
     image_url: "",
     upvotes: 0,
+    comments: null,
   });
   const [isUrlValid, setIsUrlValid] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -80,6 +82,35 @@ const ViewRecipe = () => {
     img.src = url;
   };
 
+  const handleCommentChange = (event) => {
+    const { value } = event.target;
+    setCommentText(value);
+  };
+
+  const onSendClick = async () => {
+    let updatedComments;
+    if (recipeInfo.comments) {
+      updatedComments = [...recipeInfo.comments, commentText];
+    } else {
+      updatedComments = [commentText];
+    }
+
+    setRecipeInfo((prev) => {
+      return {
+        ...prev,
+        comments: updatedComments,
+      };
+    });
+
+    await supabase
+      .from("Recipes")
+      .update({
+        comments: updatedComments,
+      })
+      .eq("id", id);
+    setCommentText("");
+  };
+
   checkImage(recipeInfo.image_url);
 
   return (
@@ -117,14 +148,15 @@ const ViewRecipe = () => {
           <p className="card-content">
             <b>Instructions: </b>
             <br />
-            {recipeInfo.instructions.split("\n").map((item, key) => {
-              return (
-                <React.Fragment key={key}>
-                  {item}
-                  <br />
-                </React.Fragment>
-              );
-            })}
+            {recipeInfo.instructions &&
+              recipeInfo.instructions.split("\n").map((item, key) => {
+                return (
+                  <React.Fragment key={key}>
+                    {item}
+                    <br />
+                  </React.Fragment>
+                );
+              })}
           </p>
           <div className="sub-content">
             <div className="sub-content">
@@ -155,7 +187,26 @@ const ViewRecipe = () => {
               />
             </div>
           </div>
-          <div></div>
+          <div>
+            {recipeInfo.comments &&
+              recipeInfo.comments.map((comment) => {
+                return <p className="comment-text">- {comment}</p>;
+              })}
+            <div className="comment-addition">
+              <input
+                type="text"
+                placeholder="Leave a comment..."
+                className="comment-box"
+                value={commentText}
+                onChange={handleCommentChange}
+              />
+              <AiOutlineSend
+                size={25}
+                className="icons send"
+                onClick={onSendClick}
+              />
+            </div>
+          </div>
         </>
       ) : (
         <div className="default-content">
