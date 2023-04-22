@@ -98,12 +98,18 @@ const Home = () => {
         </ul>
       ) : (
         <div className="default-content">
-          <h2>{`You haven't added a recipe yet 😞`}</h2>
-          <input
-            type="submit"
-            value="Add one here 🧑‍🍳"
-            onClick={onAddRecipeClick}
-          />
+          {searchTerm ? (
+            <h2>{`No results found...`}</h2>
+          ) : (
+            <>
+              <h2>{`You haven't added a recipe yet 😞`}</h2>
+              <input
+                type="submit"
+                value="Add one here 🧑‍🍳"
+                onClick={onAddRecipeClick}
+              />
+            </>
+          )}
         </div>
       )}
     </div>
