@@ -4,7 +4,7 @@ Submitted by: **Swetha Gumpena**
 
 This web app: **Platform where cooking enthusiasts can connect with each other and share their recipes**
 
-Time spent: **X** hours spent in total
+Time spent: **7** hours spent in total
 
 ## Required Features
 
@@ -41,11 +41,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='src/assets/cooking-connect.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 
-GIF created with ...
+GIF created with LiceCAP
 
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
